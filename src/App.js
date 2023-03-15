@@ -1,11 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from './components/Login/Login';
+import Cadastro from './components/Cadastro/Cadastro';
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
