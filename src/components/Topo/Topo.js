@@ -1,10 +1,16 @@
 import styled from "styled-components";
+import { useContext } from "react";
+import { UserDataContext } from "../../Contex/UserDataContext";
 
 export default function Topo() {
+
+    const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
+
     return (
         <BarraTopo data-test="header">
             <h1>TrackIt</h1>
-            <img src="" alt="" />
+            <h1>{dadosUsuario.name}</h1>
+            <img src={dadosUsuario.image} alt="" />
         </BarraTopo>
     )
 }

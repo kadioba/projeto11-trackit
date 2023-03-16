@@ -9,8 +9,8 @@ export default function Hoje() {
         <>
             <Topo />
             <TelaHoje>
-                <h1>Segunda, 17/05</h1>
-                <h2>Nenhum hábito concluído ainda</h2>
+                <h1 data-test="today">Segunda, 17/05</h1>
+                <h2 data-test="today-counter">Nenhum hábito concluído ainda</h2>
             </TelaHoje>
 
 

@@ -4,9 +4,8 @@ import React from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
-
-
-
+import { useContext } from "react";
+import { UserDataContext } from "../../Contex/UserDataContext";
 
 import logoGrande from "../../assets/logo-grande.png"
 
@@ -18,6 +17,8 @@ export default function Login() {
     const [logar, setLogar] = React.useState(false)
 
     const navigate = useNavigate()
+
+    const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
 
 
     function loginAplicacao(event) {
@@ -34,6 +35,7 @@ export default function Login() {
         requisicao.then(resposta => {
             console.log("Sucesso")
             console.log(resposta)
+            setDadosUsuario(resposta.data)
             navigate("/hoje")
         })
 
