@@ -51,9 +51,9 @@ export default function Login() {
             <img src={logoGrande} alt="" />
             <div>
                 <form onSubmit={loginAplicacao}>
-                    <input disabled={logar} placeholder="email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
-                    <input disabled={logar} placeholder="senha" type="password" value={senha} onChange={e => setSenha(e.target.value)} />
-                    <button disabled={logar} type="submit" >{logar ? <ThreeDots
+                    <input data-test="email-input" disabled={logar} placeholder="email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                    <input data-test="password-input" disabled={logar} placeholder="senha" type="password" value={senha} onChange={e => setSenha(e.target.value)} />
+                    <button data-test="login-btn" disabled={logar} type="submit" >{logar ? <ThreeDots
                         text
                         height="80"
                         width="80"
@@ -66,7 +66,7 @@ export default function Login() {
                     /> : "Entrar"}</button>
                 </form>
             </div>
-            <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
+            <Link data-test="signup-link" to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
         </PaginaDeCadastro>
     )
 }

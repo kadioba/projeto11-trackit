@@ -52,11 +52,11 @@ export default function Cadastro() {
             <img src={logoGrande} alt="" />
             <div>
                 <form onSubmit={cadastrarUsuario}>
-                    <input disabled={cadastrar} placeholder="email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
-                    <input disabled={cadastrar} placeholder="senha" type="password" value={senha} onChange={e => setSenha(e.target.value)} />
-                    <input disabled={cadastrar} placeholder="nome" type="text" value={nome} onChange={e => setNome(e.target.value)} />
-                    <input disabled={cadastrar} placeholder="foto" type="url" value={foto} onChange={e => setFoto(e.target.value)} />
-                    <button disabled={cadastrar} type="submit" >{cadastrar ? <ThreeDots
+                    <input data-test="email-input" disabled={cadastrar} placeholder="email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                    <input data-test="password-input" disabled={cadastrar} placeholder="senha" type="password" value={senha} onChange={e => setSenha(e.target.value)} />
+                    <input data-test="user-name-input" disabled={cadastrar} placeholder="nome" type="text" value={nome} onChange={e => setNome(e.target.value)} />
+                    <input data-test="user-image-input" disabled={cadastrar} placeholder="foto" type="url" value={foto} onChange={e => setFoto(e.target.value)} />
+                    <button data-test="signup-btn" disabled={cadastrar} type="submit" >{cadastrar ? <ThreeDots
                         text
                         height="80"
                         width="80"
@@ -69,7 +69,7 @@ export default function Cadastro() {
                     /> : "Cadastrar"}</button>
                 </form>
             </div>
-            <Link to="/">Já tem uma conta? Faça login!</Link>
+            <Link data-test="login-link" to="/">Já tem uma conta? Faça login!</Link>
         </PaginaDeCadastro >
     )
 }
