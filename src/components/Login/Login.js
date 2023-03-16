@@ -1,17 +1,70 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import React from 'react'
+import { ThreeDots } from 'react-loader-spinner'
+import axios from "axios";
+import { useNavigate } from "react-router-dom"
+
+
+
 
 import logoGrande from "../../assets/logo-grande.png"
 
 
 export default function Login() {
+
+    const [email, setEmail] = React.useState("");
+    const [senha, setSenha] = React.useState("");
+    const [logar, setLogar] = React.useState(false)
+
+    const navigate = useNavigate()
+
+
+    function loginAplicacao(event) {
+
+        event.preventDefault();
+
+        const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", {
+            email: email,
+            password: senha
+        })
+
+        setLogar(true)
+
+        requisicao.then(resposta => {
+            console.log("Sucesso")
+            console.log(resposta)
+            navigate("/hoje")
+        })
+
+        requisicao.catch(resposta => {
+            console.log("Erro")
+            console.log(resposta)
+            setLogar(false)
+            alert("Erro ao logar, tente novamente")
+        })
+
+    }
+
     return (
         <PaginaDeCadastro>
             <img src={logoGrande} alt="" />
             <div>
-                <input type="text" />
-                <input type="text" />
-                <button>Entrar</button>
+                <form onSubmit={loginAplicacao}>
+                    <input disabled={logar} placeholder="email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                    <input disabled={logar} placeholder="senha" type="password" value={senha} onChange={e => setSenha(e.target.value)} />
+                    <button disabled={logar} type="submit" >{logar ? <ThreeDots
+                        text
+                        height="80"
+                        width="80"
+                        radius="9"
+                        color="white"
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName=""
+                        visible={true}
+                    /> : "Entrar"}</button>
+                </form>
             </div>
             <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
         </PaginaDeCadastro>
@@ -22,7 +75,7 @@ const PaginaDeCadastro = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-div{
+form{
     margin-top: 32px;
     width: 303px;
     height: 147px;
