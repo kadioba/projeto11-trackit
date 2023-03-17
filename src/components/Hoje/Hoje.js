@@ -1,10 +1,32 @@
 import styled from "styled-components";
+import axios from "axios";
+import { UserDataContext } from "../../Contex/UserDataContext";
+import { useContext } from "react";
+import { useState, useEffect } from 'react';
 
 
 import Topo from "../Topo/Topo";
 import Menu from "../Menu/Menu";
 
 export default function Hoje() {
+
+    const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
+
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${dadosUsuario.token}`
+        }
+    }
+
+    useEffect(() => {
+        console.log(dadosUsuario.token)
+        const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config);
+
+        requisicao.then(resposta => {
+            console.log(resposta);
+        });
+    }, []);
+
     return (
         <>
             <Topo />
@@ -27,6 +49,7 @@ height: 80vh;
 background-color: #F2F2F2;
 padding: 0px 17px;
 padding-top: 28px;
+box-sizing: border-box;
 h1{
     font-family: 'Lexend Deca';
     font-weight: 400;

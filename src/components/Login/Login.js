@@ -19,7 +19,7 @@ export default function Login() {
     const navigate = useNavigate()
 
     const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
-
+    console.log(dadosUsuario)
 
     function loginAplicacao(event) {
 
@@ -34,7 +34,6 @@ export default function Login() {
 
         requisicao.then(resposta => {
             console.log("Sucesso")
-            console.log(resposta)
             setDadosUsuario(resposta.data)
             navigate("/hoje")
         })
