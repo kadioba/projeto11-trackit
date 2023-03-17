@@ -1,8 +1,40 @@
 import styled from "styled-components";
 import Topo from "../Topo/Topo";
 import Menu from "../Menu/Menu";
+import CriacaoHabito from "./CriacaoHabito";
+import CardHabito from "./CardHabito";
+import { UserDataContext } from "../../Contex/UserDataContext";
+import { useContext } from "react";
+import { useState, useEffect } from 'react';
+import axios from "axios";
+import React from "react";
 
 export default function Habitos() {
+
+    const [habitos, setHabitos] = React.useState(false)
+    const [criarHabito, setCriarHabito] = React.useState(false)
+    console.log(habitos)
+
+    const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
+
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${dadosUsuario.token}`
+        }
+    }
+
+    useEffect(() => {
+        const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
+
+        requisicao.then(resposta => {
+            console.log(resposta);
+            setHabitos(resposta.data)
+        });
+    }, []);
+
+    function mostrarCriarHabito() {
+        setCriarHabito(true)
+    }
 
     return (
         <>
@@ -10,8 +42,10 @@ export default function Habitos() {
             <TelaHabitos>
                 <div>
                     <h1>Meus hábitos</h1>
-                    <button>+</button>
+                    <button onClick={() => mostrarCriarHabito()}>+</button>
                 </div>
+                {criarHabito ? <CriacaoHabito setHabitos={setHabitos} habitos={habitos} /> : ""}
+                {habitos ? habitos.map(carta => <CardHabito id={carta.id} conteudo={carta.name} dias={carta.days} setHabitos={setHabitos} habitos={habitos} />) : <h2>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h2>}
             </TelaHabitos>
             <Menu />
         </>
@@ -53,5 +87,13 @@ button{
     align-items: center;
     border: none;
     border-radius: 4.63636px;
+}
+h2{
+    font-family: 'Lexend Deca';
+    font-weight: 400;
+    font-size: 17.976px;
+    line-height: 22px;
+    color: #666666;
+    background-color: #126BA5;
 }
 `

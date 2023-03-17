@@ -1,37 +1,56 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+
 
 export default function Menu() {
+
+    const navigate = useNavigate()
+
+    function direcionarHoje() {
+        navigate("/hoje")
+    }
+
     return (
         <BarraMenu data-test="menu">
-            <a data-test="history-link" href="https://www.figma.com/file/IBpI2MYMEbnHOweD1rK0JA/TrackIt-(Copy)?node-id=15-124&t=JHueuPo7urTs5goH-0">Hábitos</a>
-            <button data-test="today-link">Hoje</button>
+            <Link to="/habitos">Hábitos</Link>
+            <button data-test="today-link" onClick={() => direcionarHoje()}>Hoje</button>
             <a data-test="habit-link" href="https://www.figma.com/file/IBpI2MYMEbnHOweD1rK0JA/TrackIt-(Copy)?node-id=15-124&t=JHueuPo7urTs5goH-0">Histórico</a>
         </BarraMenu>
     )
 }
 
 const BarraMenu = styled.div`
-width: 100vw;
-height: 10vh;
+margin: 0 auto;
+width: 375px;
+height: 70px;
 background-color: #FFFFFF;
-padding: 0px 36px;
 display: flex;
 justify-content: space-between;
 align-items: center;
 position: fixed;
 bottom: 0px;
 left: 0px;
+background-color: red;
 a{
     font-family: 'Lexend Deca';
     font-weight: 400;
     font-size: 17.976px;
     color: #52B6FF;
+    background-color: red;
 }
 button{
     width: 91px;
     height: 91px;
     background: #52B6FF;
-    margin-bottom: 100px;
-
+    margin-bottom: 40px;
+    border-radius: 50px;
+    border: none;
+    font-family: 'Lexend Deca';
+    font-weight: 400;
+    font-size: 17.976px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
 }
 `

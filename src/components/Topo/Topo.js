@@ -9,7 +9,6 @@ export default function Topo() {
     return (
         <BarraTopo data-test="header">
             <h1>TrackIt</h1>
-            <h1>{dadosUsuario.name}</h1>
             <img src={dadosUsuario.image} alt="" />
         </BarraTopo>
     )
