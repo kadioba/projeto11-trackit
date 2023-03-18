@@ -1,15 +1,44 @@
 import styled from "styled-components";
 import check from "../../assets/check.png"
+import axios from "axios";
+import { useContext } from "react";
+import { UserDataContext } from "../../Contex/UserDataContext";
 
-export default function CardaHabitoHoje() {
+export default function CardaHabitoHoje(props) {
+
+    const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
+
+
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${dadosUsuario.token}`
+        }
+    }
+
+    function marcarHabito() {
+        const body = {}
+
+        if (props.feito) {
+            const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}/uncheck`, body, config);
+
+            requisicao.then(resposta => props.setHabitoAtualizado(props.id))
+        }
+
+        else {
+            const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}/check`, body, config);
+
+            requisicao.then(resposta => props.setHabitoAtualizado(props.id))
+        }
+    }
+
     return (
         <CardHoje>
             <DadosHabito>
-                <h1>Ler 1 capítulo de livro</h1>
-                <h2>Sequência atual: 3 dias</h2>
-                <h2>Seu recorde: 5 dias</h2>
+                <h1>{props.nome}</h1>
+                <h2>Sequência atual: {props.sequencia} dias</h2>
+                <h2>Seu recorde: {props.sequenciaMax} dias</h2>
             </DadosHabito>
-            <CheckDia>
+            <CheckDia feito={props.feito} onClick={() => marcarHabito()}>
                 <img src={check} alt="" />
             </CheckDia>
         </CardHoje>
@@ -33,7 +62,7 @@ const CheckDia = styled.button`
     box-sizing: border-box;
     width: 69px;
     height: 69px;
-    background-color: #EBEBEB;
+    background-color: ${props => props.feito ? "#8FC549" : "#EBEBEB"};
     border: 1px solid #E7E7E7;
     border-radius: 5px;
     display: flex;

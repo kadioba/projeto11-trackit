@@ -13,6 +13,9 @@ export default function Hoje() {
 
     const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
     const [habitosDia, setHabitosDia] = React.useState([])
+    const [habitoAtualizado, setHabitoAtualizado] = React.useState([])
+
+    console.log(habitosDia)
 
     const config = {
         headers: {
@@ -27,7 +30,7 @@ export default function Hoje() {
         requisicao.then(resposta => {
             setHabitosDia(resposta.data);
         });
-    }, []);
+    }, [habitoAtualizado]);
 
     return (
         <>
@@ -35,7 +38,15 @@ export default function Hoje() {
             <TelaHoje>
                 <TextoDia data-test="today">Segunda, 17/05</TextoDia>
                 <HabitoNaoEncontrado data-test="today-counter">Nenhum hábito concluído ainda</HabitoNaoEncontrado>
-                {habitosDia.map(habito => <CardaHabitoHoje />)}
+                {habitosDia.map(habito => <CardaHabitoHoje
+                    sequencia={habito.currentSequence}
+                    sequenciaMax={habito.highestSequence}
+                    id={habito.id}
+                    feito={habito.done}
+                    nome={habito.name}
+                    setHabitoAtualizado={setHabitoAtualizado}
+                    habitoAtualizado={habitoAtualizado}
+                />)}
             </TelaHoje>
             <Menu />
         </>

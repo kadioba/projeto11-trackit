@@ -15,7 +15,7 @@ export default function Menu() {
         <BarraMenu data-test="menu">
             <Link to="/habitos">Hábitos</Link>
             <button data-test="today-link" onClick={() => direcionarHoje()}>Hoje</button>
-            <a data-test="habit-link" href="https://www.figma.com/file/IBpI2MYMEbnHOweD1rK0JA/TrackIt-(Copy)?node-id=15-124&t=JHueuPo7urTs5goH-0">Histórico</a>
+            <Link to="/historico">Histórico</Link>
         </BarraMenu>
     )
 }
