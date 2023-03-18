@@ -21,29 +21,41 @@ export default function CardHabito(props) {
             console.log("Excluido com sucesso")
             const novoArray = props.habitos.filter(hab => hab.id !== props.id)
             props.setHabitos(novoArray)
+            console.log(props.dias)
         })
     }
 
+    console.log(props.dias)
+
+    function corLetra(numero) {
+        for (let i = 0; i < props.dias.length; i++) {
+            if (numero == props.dias[i]) {
+                return true
+            }
+        }
+        return false
+    }
+
     return (
-        <Cartao>
+        <CartaoHabito>
             <div>
                 <h1>{props.conteudo}</h1>
                 <img src={iconeLixo} alt="" onClick={() => deletarHabito()} />
             </div>
             <div>
-                <button>D</button>
-                <button>S</button>
-                <button>T</button>
-                <button>Q</button>
-                <button>Q</button>
-                <button>S</button>
-                <button>S</button>
+                <button corLetra={corLetra(7)}>D</button>
+                <button corLetra={corLetra(1)}>S</button>
+                <button corLetra={corLetra(2)}>T</button>
+                <button corLetra={corLetra(3)}>Q</button>
+                <button corLetra={corLetra(4)}>Q</button>
+                <button corLetra={corLetra(5)}>S</button>
+                <button corLetra={corLetra(6)}>S</button>
             </div>
-        </Cartao>
+        </CartaoHabito>
     )
 }
 
-const Cartao = styled.div`
+const CartaoHabito = styled.div`
 width: 340px;
 height: 91px;
 background: #FFFFFF;
@@ -71,16 +83,17 @@ img{
     height: 15px;
 }
 div:nth-of-type(2){
-    width: 240px;
+    width: 250px;
     height: 30px;
     display: flex;
     justify-content: space-between;
     align-self: flex-start;
+    background-color: red;
 }
 button{
     width: 30px;
     height: 30px;
-    background-color: #FFFFFF;
+    background-color: ${props => props.corLetra ? "white" : "yellow"};
     border: 1px solid #D5D5D5;
     border-radius: 5px;
     box-sizing: border-box;
@@ -88,6 +101,6 @@ button{
     font-weight: 400;
     font-size: 19.976px;
     line-height: 25px;
-    color: #DBDBDB;
+    color: ${props => props.corLetra ? "green" : "blue"};
 }
 `
