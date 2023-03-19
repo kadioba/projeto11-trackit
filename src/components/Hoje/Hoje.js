@@ -13,6 +13,7 @@ import CardaHabitoHoje from "./CardHabitoHoje";
 export default function Hoje() {
 
     const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
+
     const [habitosDia, setHabitosDia] = React.useState([])
     const [habitoAtualizado, setHabitoAtualizado] = React.useState([])
 
@@ -24,18 +25,19 @@ export default function Hoje() {
         }
     }
 
-    const dayjs = require('dayjs')
-    const agora = dayjs()
-    console.log(agora)
+    /*     const dayjs = require('dayjs')
+        const agora = dayjs()
+        console.log(agora) */
 
     useEffect(() => {
-        console.log(dadosUsuario.token)
         const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config);
 
         requisicao.then(resposta => {
+            console.log("Sucesso ao buscar habitos do dia")
+            console.log(resposta)
             setHabitosDia(resposta.data);
         });
-    }, [habitoAtualizado]);
+    }, [/* habitoAtualizado */]);
 
     return (
         <>

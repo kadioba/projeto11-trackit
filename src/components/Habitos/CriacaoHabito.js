@@ -48,7 +48,7 @@ export default function CriacaoHabito(props) {
         <Card data-test="habit-create-container">
             <input data-test="habit-name-input" type="text" placeholder="nome do hábito" onChange={event => setNomeHabito(event.target.value)} />
             <DiasSemana>
-                <button data-test="habit-day" onClick={() => acionarDia(7)}>D</button>
+                <button data-test="habit-day" onClick={() => acionarDia(0)}>D</button>
                 <button data-test="habit-day" onClick={() => acionarDia(1)}>S</button>
                 <button data-test="habit-day" onClick={() => acionarDia(2)}>T</button>
                 <button data-test="habit-day" onClick={() => acionarDia(3)}>Q</button>
