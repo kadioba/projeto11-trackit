@@ -13,9 +13,9 @@ export default function Menu() {
 
     return (
         <BarraMenu data-test="menu">
-            <Link to="/habitos">Hábitos</Link>
+            <Link data-test="habit-link" to="/habitos">Hábitos</Link>
             <button data-test="today-link" onClick={() => direcionarHoje()}>Hoje</button>
-            <Link to="/historico">Histórico</Link>
+            <Link data-test="history-link" to="/historico">Histórico</Link>
         </BarraMenu>
     )
 }

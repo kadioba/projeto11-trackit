@@ -105,6 +105,9 @@ button{
     border-radius: 4.63636px;
     color: #FFFFFF;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 a{
     margin-top: 25px;

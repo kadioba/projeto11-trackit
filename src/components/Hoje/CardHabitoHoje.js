@@ -32,13 +32,13 @@ export default function CardaHabitoHoje(props) {
     }
 
     return (
-        <CardHoje>
+        <CardHoje data-test="today-habit-container">
             <DadosHabito>
-                <h1>{props.nome}</h1>
-                <h2>Sequência atual: {props.sequencia} dias</h2>
-                <h2>Seu recorde: {props.sequenciaMax} dias</h2>
+                <h1 data-test="today-habit-name">{props.nome}</h1>
+                <h2 data-test="today-habit-sequence">Sequência atual: {props.sequencia} dias</h2>
+                <h2 data-test="today-habit-record">Seu recorde: {props.sequenciaMax} dias</h2>
             </DadosHabito>
-            <CheckDia feito={props.feito} onClick={() => marcarHabito()}>
+            <CheckDia data-test="today-habit-check-btn" feito={props.feito} onClick={() => marcarHabito()}>
                 <img src={check} alt="" />
             </CheckDia>
         </CardHoje>

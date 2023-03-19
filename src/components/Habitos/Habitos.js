@@ -42,7 +42,7 @@ export default function Habitos() {
             <TelaHabitos>
                 <div>
                     <h1>Meus hábitos</h1>
-                    <button onClick={() => mostrarCriarHabito()}>+</button>
+                    <button data-test="habit-create-btn" onClick={() => mostrarCriarHabito()}>+</button>
                 </div>
                 {criarHabito ? <CriacaoHabito setHabitos={setHabitos} habitos={habitos} /> : ""}
                 {habitos ? habitos.map(carta => <CardHabito id={carta.id} conteudo={carta.name} dias={carta.days} setHabitos={setHabitos} habitos={habitos} />) : <h2>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h2>}

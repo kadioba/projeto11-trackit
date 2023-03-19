@@ -4,6 +4,7 @@ import { UserDataContext } from "../../Contex/UserDataContext";
 import { useContext } from "react";
 import { useState, useEffect } from 'react';
 import React from "react";
+import dayjs from "dayjs";
 
 import Topo from "../Topo/Topo";
 import Menu from "../Menu/Menu";
@@ -22,6 +23,10 @@ export default function Hoje() {
             "Authorization": `Bearer ${dadosUsuario.token}`
         }
     }
+
+    const dayjs = require('dayjs')
+    const agora = dayjs()
+    console.log(agora)
 
     useEffect(() => {
         console.log(dadosUsuario.token)

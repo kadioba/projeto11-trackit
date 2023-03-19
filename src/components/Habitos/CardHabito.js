@@ -37,19 +37,19 @@ export default function CardHabito(props) {
     }
 
     return (
-        <CartaoHabito>
+        <CartaoHabito data-test="habit-container">
             <div>
-                <h1>{props.conteudo}</h1>
-                <img src={iconeLixo} alt="" onClick={() => deletarHabito()} />
+                <h1 data-test="habit-name">{props.conteudo}</h1>
+                <img data-test="habit-delete-btn" src={iconeLixo} alt="" onClick={() => deletarHabito()} />
             </div>
             <div>
-                <button corLetra={corLetra(7)}>D</button>
-                <button corLetra={corLetra(1)}>S</button>
-                <button corLetra={corLetra(2)}>T</button>
-                <button corLetra={corLetra(3)}>Q</button>
-                <button corLetra={corLetra(4)}>Q</button>
-                <button corLetra={corLetra(5)}>S</button>
-                <button corLetra={corLetra(6)}>S</button>
+                <button data-test="habit-day" corLetra={corLetra(7)}>D</button>
+                <button data-test="habit-day" corLetra={corLetra(1)}>S</button>
+                <button data-test="habit-day" corLetra={corLetra(2)}>T</button>
+                <button data-test="habit-day" corLetra={corLetra(3)}>Q</button>
+                <button data-test="habit-day" corLetra={corLetra(4)}>Q</button>
+                <button data-test="habit-day" corLetra={corLetra(5)}>S</button>
+                <button data-test="habit-day" corLetra={corLetra(6)}>S</button>
             </div>
         </CartaoHabito>
     )

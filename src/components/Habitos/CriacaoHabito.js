@@ -45,20 +45,20 @@ export default function CriacaoHabito(props) {
     }
 
     return (
-        <Card>
-            <input type="text" placeholder="nome do hábito" onChange={event => setNomeHabito(event.target.value)} />
+        <Card data-test="habit-create-container">
+            <input data-test="habit-name-input" type="text" placeholder="nome do hábito" onChange={event => setNomeHabito(event.target.value)} />
             <DiasSemana>
-                <button onClick={() => acionarDia(7)}>D</button>
-                <button onClick={() => acionarDia(1)}>S</button>
-                <button onClick={() => acionarDia(2)}>T</button>
-                <button onClick={() => acionarDia(3)}>Q</button>
-                <button onClick={() => acionarDia(4)}>Q</button>
-                <button onClick={() => acionarDia(5)}>S</button>
-                <button onClick={() => acionarDia(6)}>S</button>
+                <button data-test="habit-day" onClick={() => acionarDia(7)}>D</button>
+                <button data-test="habit-day" onClick={() => acionarDia(1)}>S</button>
+                <button data-test="habit-day" onClick={() => acionarDia(2)}>T</button>
+                <button data-test="habit-day" onClick={() => acionarDia(3)}>Q</button>
+                <button data-test="habit-day" onClick={() => acionarDia(4)}>Q</button>
+                <button data-test="habit-day" onClick={() => acionarDia(5)}>S</button>
+                <button data-test="habit-day" onClick={() => acionarDia(6)}>S</button>
             </DiasSemana>
             <div>
-                <button>Cancelar</button>
-                <button onClick={() => enviarHabito()}>Salvar</button>
+                <button data-test="habit-create-cancel-btn">Cancelar</button>
+                <button data-test="habit-create-save-btn" onClick={() => enviarHabito()}>Salvar</button>
             </div>
 
         </Card>
