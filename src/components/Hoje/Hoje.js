@@ -25,9 +25,6 @@ export default function Hoje() {
         }
     }
 
-    /*     const dayjs = require('dayjs')
-        const agora = dayjs()
-        console.log(agora) */
 
     useEffect(() => {
         const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config);
@@ -37,7 +34,7 @@ export default function Hoje() {
             console.log(resposta)
             setHabitosDia(resposta.data);
         });
-    }, [/* habitoAtualizado */]);
+    }, [habitoAtualizado]);
 
     return (
         <>
@@ -55,7 +52,7 @@ export default function Hoje() {
                     habitoAtualizado={habitoAtualizado}
                 />)}
             </TelaHoje>
-            <Menu />
+            <Menu habitoAtualizado={habitoAtualizado} />
         </>
     )
 }
