@@ -105,8 +105,6 @@ const TelaHoje = styled.div`
 margin-top: 10vh;
 margin-bottom: 10vh;
 width: 100vw;
-height: 80vh;
-background-color: #F2F2F2;
 padding: 0px 17px;
 padding-top: 28px;
 box-sizing: border-box;
@@ -126,4 +124,5 @@ font-weight: 400;
 font-size: 17.976px;
 color: ${props => props.habitosConcluidos ? "#8FC549" : "#BABABA"};
 line-height: 22px;
+margin-bottom: 28px;
 `

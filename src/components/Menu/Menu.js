@@ -41,8 +41,8 @@ export default function Menu(props) {
 
 const BarraMenu = styled.div`
 margin: 0 auto;
-width: 375px;
-height: 70px;
+width: 100vw;
+height: 10vh;
 background-color: #FFFFFF;
 display: flex;
 justify-content: space-between;
@@ -50,13 +50,13 @@ align-items: center;
 position: fixed;
 bottom: 0px;
 left: 0px;
-background-color: red;
+padding: 0px 30px;
+box-sizing: border-box;
 a{
     font-family: 'Lexend Deca';
     font-weight: 400;
     font-size: 17.976px;
     color: #52B6FF;
-    background-color: red;
 }
 button{
     width: 91px;

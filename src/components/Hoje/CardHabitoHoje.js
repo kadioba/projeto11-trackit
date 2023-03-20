@@ -70,7 +70,7 @@ export default function CardaHabitoHoje(props) {
 }
 
 const CardHoje = styled.div`
-width: 340px;
+width: 100%;
 height: 94px;
 background: #FFFFFF;
 border-radius: 5px;
@@ -98,35 +98,32 @@ img{
 `
 
 const DadosHabito = styled.div`
-width: 231px;
-height: 64px;
 h1{
-    width: 208px;
-    height: 25px;
+    max-width: 60vw;;
     font-family: 'Lexend Deca';
     font-weight: 400;
     font-size: 19.976px;
     line-height: 25px;
     color: #666666;
+    margin-bottom: 15px;
 }
 `
 
 const SequenciaHabito = styled.h2`
-width: 146px;
-height: 32px;
+max-width: 60vw;
 font-family: 'Lexend Deca';
 font-weight: 400;
 font-size: 12.976px;
 line-height: 6px;
 color: #666666;
+margin-bottom: 10px;
 span{
     color: ${props => props.feito ? "#8FC549" : "#666666"};
 }
 `
 
 const RecordeDeSequencia = styled.h2`
-width: 146px;
-height: 32px;
+max-width: 60vw;
 font-family: 'Lexend Deca';
 font-weight: 400;
 font-size: 12.976px;

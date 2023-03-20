@@ -43,6 +43,9 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+body{
+	background-color: #F2F2F2;
+}
 `
 
 export default GlobalStyle
