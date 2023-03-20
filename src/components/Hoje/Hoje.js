@@ -13,6 +13,7 @@ import CardaHabitoHoje from "./CardHabitoHoje";
 export default function Hoje() {
 
     const { dadosUsuario, setDadosUsuario, habitosCompletos, setHabitosCompletos } = useContext(UserDataContext)
+    console.log(habitosCompletos)
 
     const [habitosDia, setHabitosDia] = React.useState([])
     const [habitoAtualizado, setHabitoAtualizado] = React.useState([])
@@ -52,8 +53,11 @@ export default function Hoje() {
     }
 
     function habitosConcluidos() {
-        if (habitosCompletos === 0) {
+        if (isNaN(habitosCompletos)) {
             return (false)
+        }
+        if (habitosCompletos === 0) {
+            return false
         }
         else {
             return (true)

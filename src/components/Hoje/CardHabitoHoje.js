@@ -23,13 +23,25 @@ export default function CardaHabitoHoje(props) {
         if (props.feito) {
             const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}/uncheck`, body, config);
 
-            requisicao.then(resposta => props.setHabitoAtualizado(props.id))
+            requisicao.then(resposta => {
+                props.setHabitoAtualizado([...props.habitoAtualizado, props.id])
+            })
         }
 
         else {
             const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}/check`, body, config);
 
-            requisicao.then(resposta => props.setHabitoAtualizado(props.id))
+            requisicao.then(resposta => {
+                console.log(resposta)
+                props.setHabitoAtualizado([...props.habitoAtualizado, props.id])
+
+            })
+
+            requisicao.catch(resposta => {
+                console.log("erro")
+                console.log(resposta)
+            })
+
         }
     }
 
