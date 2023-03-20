@@ -58,7 +58,7 @@ export default function CardaHabitoHoje(props) {
         <CardHoje data-test="today-habit-container">
             <DadosHabito>
                 <h1 data-test="today-habit-name">{props.nome}</h1>
-                <SequenciaHabito feito={feito} data-test="today-habit-sequence">Sequência atual: <span>{props.sequencia} dias</span></SequenciaHabito>
+                <SequenciaHabito data-test="today-habit-sequence" feito={feito} >Sequência atual: <span>{props.sequencia} dias</span></SequenciaHabito>
                 <RecordeDeSequencia data-test="today-habit-record" streak={streak()}>Seu recorde: <span>{props.sequenciaMax} dias</span></RecordeDeSequencia>
             </DadosHabito>
             <CheckDia data-test="today-habit-check-btn" feito={props.feito} onClick={() => marcarHabito()}>
