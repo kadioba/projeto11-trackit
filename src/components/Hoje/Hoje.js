@@ -17,11 +17,46 @@ export default function Hoje() {
     const [habitosDia, setHabitosDia] = React.useState([])
     const [habitoAtualizado, setHabitoAtualizado] = React.useState([])
 
-    console.log(habitosDia)
+    const diaMes = dayjs().format('DD/MM')
+    const diaDaSemana = dayjs().format('ddd')
+    const porcentagemHabitos = Number(habitosCompletos).toFixed()
 
     const config = {
         headers: {
             "Authorization": `Bearer ${dadosUsuario.token}`
+        }
+    }
+
+    function traduzDiaDaSemana(dia) {
+        if (dia === 'Sun') {
+            return ('Domingo')
+        }
+        else if (dia === 'Mon') {
+            return ('Segunda')
+        }
+        else if (dia === 'Tue') {
+            return ('Terça')
+        }
+        else if (dia === 'Wed') {
+            return ('Quarta')
+        }
+        else if (dia === 'Thu') {
+            return ('Quinta')
+        }
+        else if (dia === 'Fri') {
+            return ('Sexta')
+        }
+        else if (dia === 'Sat') {
+            return ('Sabado')
+        }
+    }
+
+    function habitosConcluidos() {
+        if (habitosCompletos === 0) {
+            return (false)
+        }
+        else {
+            return (true)
         }
     }
 
@@ -45,8 +80,8 @@ export default function Hoje() {
         <>
             <Topo />
             <TelaHoje>
-                <TextoDia data-test="today">Segunda, 17/05</TextoDia>
-                <HabitoNaoEncontrado data-test="today-counter">Nenhum hábito concluído ainda</HabitoNaoEncontrado>
+                <TextoDia data-test="today">{traduzDiaDaSemana(diaDaSemana)}, {diaMes}</TextoDia>
+                <HabitosFeitos data-test="today-counter" habitosConcluidos={habitosConcluidos()}>{habitosConcluidos() ? `${porcentagemHabitos}% dos hábitos concluidos` : "Nenhum hábito concluído ainda"}</HabitosFeitos>
                 {habitosDia.map(habito => <CardaHabitoHoje
                     sequencia={habito.currentSequence}
                     sequenciaMax={habito.highestSequence}
@@ -81,10 +116,10 @@ color: #126BA5;
 line-height: 29px;
 `
 
-const HabitoNaoEncontrado = styled.h2`
+const HabitosFeitos = styled.h2`
 font-family: 'Lexend Deca';
 font-weight: 400;
 font-size: 17.976px;
-color: #BABABA;
+color: ${props => props.habitosConcluidos ? "#8FC549" : "#BABABA"};
 line-height: 22px;
 `

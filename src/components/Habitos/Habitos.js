@@ -17,6 +17,7 @@ export default function Habitos() {
     const [diasHabitoEmCriacao, setDiasHabitoEmCriacao] = React.useState(null)
 
 
+
     const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
 
     const config = {

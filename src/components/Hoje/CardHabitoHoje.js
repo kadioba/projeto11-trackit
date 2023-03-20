@@ -15,6 +15,8 @@ export default function CardaHabitoHoje(props) {
         }
     }
 
+    const feito = props.feito
+
     function marcarHabito() {
         const body = {}
 
@@ -31,12 +33,21 @@ export default function CardaHabitoHoje(props) {
         }
     }
 
+    function streak() {
+        if (props.sequencia === props.sequenciaMax) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     return (
         <CardHoje data-test="today-habit-container">
             <DadosHabito>
                 <h1 data-test="today-habit-name">{props.nome}</h1>
-                <h2 data-test="today-habit-sequence">Sequência atual: {props.sequencia} dias</h2>
-                <h2 data-test="today-habit-record">Seu recorde: {props.sequenciaMax} dias</h2>
+                <SequenciaHabito feito={feito} data-test="today-habit-sequence">Sequência atual: <span>{props.sequencia} dias</span></SequenciaHabito>
+                <RecordeDeSequencia data-test="today-habit-record" streak={streak()}>Seu recorde: <span>{props.sequenciaMax} dias</span></RecordeDeSequencia>
             </DadosHabito>
             <CheckDia data-test="today-habit-check-btn" feito={props.feito} onClick={() => marcarHabito()}>
                 <img src={check} alt="" />
@@ -86,13 +97,30 @@ h1{
     line-height: 25px;
     color: #666666;
 }
-h2{
-    width: 146px;
-    height: 32px;
-    font-family: 'Lexend Deca';
-    font-weight: 400;
-    font-size: 12.976px;
-    line-height: 6px;
-    color: #666666;
+`
+
+const SequenciaHabito = styled.h2`
+width: 146px;
+height: 32px;
+font-family: 'Lexend Deca';
+font-weight: 400;
+font-size: 12.976px;
+line-height: 6px;
+color: #666666;
+span{
+    color: ${props => props.feito ? "#8FC549" : "#666666"};
+}
+`
+
+const RecordeDeSequencia = styled.h2`
+width: 146px;
+height: 32px;
+font-family: 'Lexend Deca';
+font-weight: 400;
+font-size: 12.976px;
+line-height: 6px;
+color: #666666;
+span{
+    color: ${props => props.streak ? "#8FC549" : "#666666"};
 }
 `
