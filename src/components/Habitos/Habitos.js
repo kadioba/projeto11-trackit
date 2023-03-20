@@ -13,7 +13,9 @@ export default function Habitos() {
 
     const [habitos, setHabitos] = React.useState(false)
     const [criarHabito, setCriarHabito] = React.useState(false)
-    console.log(habitos)
+    const [nomeHabitoEmCriacao, setNomeHabitoEmCriacao] = React.useState(null)
+    const [diasHabitoEmCriacao, setDiasHabitoEmCriacao] = React.useState(null)
+
 
     const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
 
@@ -27,13 +29,29 @@ export default function Habitos() {
         const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
 
         requisicao.then(resposta => {
-            console.log(resposta);
+            console.log(resposta, "Habitos resposta");
             setHabitos(resposta.data)
         });
-    }, []);
+    }, [habitos]);
 
     function mostrarCriarHabito() {
         setCriarHabito(true)
+    }
+
+    function gerarHabitos() {
+        if (habitos === false || habitos.length === 0) {
+            return (<h2>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h2>)
+        }
+        else {
+            return (
+                habitos.map(carta => <CardHabito
+                    id={carta.id}
+                    conteudo={carta.name}
+                    dias={carta.days}
+                    setHabitos={setHabitos}
+                    habitos={habitos} />)
+            )
+        }
     }
 
     return (
@@ -42,10 +60,17 @@ export default function Habitos() {
             <TelaHabitos>
                 <div>
                     <h1>Meus hábitos</h1>
-                    <button data-test="habit-create-btn" onClick={() => mostrarCriarHabito()}>+</button>
+                    <BotaoCriarHabito data-test="habit-create-btn" onClick={() => mostrarCriarHabito()}>+</BotaoCriarHabito>
                 </div>
-                {criarHabito ? <CriacaoHabito setHabitos={setHabitos} habitos={habitos} /> : ""}
-                {habitos ? habitos.map(carta => <CardHabito id={carta.id} conteudo={carta.name} dias={carta.days} setHabitos={setHabitos} habitos={habitos} />) : <h2>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h2>}
+                {criarHabito ? <CriacaoHabito
+                    setHabitos={setHabitos}
+                    habitos={habitos}
+                    setCriarHabito={setCriarHabito}
+                    nomeHabitoEmCriacao={nomeHabitoEmCriacao}
+                    setNomeHabitoEmCriacao={setNomeHabitoEmCriacao}
+                    diasHabitoEmCriacao={diasHabitoEmCriacao}
+                    setDiasHabitoEmCriacao={setDiasHabitoEmCriacao} /> : ""}
+                {gerarHabitos()}
             </TelaHabitos>
             <Menu />
         </>
@@ -73,27 +98,28 @@ h1{
     line-height: 29px;
     color: #126BA5;
 }
-button{
-    width: 40px;
-    height: 35px;
-    background-color: #52B6FF;
-    font-family: 'Lexend Deca';
-    font-weight: 400;
-    font-size: 26.976px;
-    line-height: 34px;
-    color: #FFFFFF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 4.63636px;
-}
 h2{
     font-family: 'Lexend Deca';
     font-weight: 400;
     font-size: 17.976px;
     line-height: 22px;
     color: #666666;
-    background-color: #126BA5;
+    margin-top: 28px;
 }
+`
+
+const BotaoCriarHabito = styled.button`
+width: 40px;
+height: 35px;
+background-color: #52B6FF;
+font-family: 'Lexend Deca';
+font-weight: 400;
+font-size: 26.976px;
+line-height: 34px;
+color: #FFFFFF;
+display: flex;
+justify-content: center;
+align-items: center;
+border: none;
+border-radius: 4.63636px;
 `

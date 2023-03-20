@@ -33,14 +33,11 @@ export default function Cadastro() {
         setCadastrar(true);
 
         requisicao.then(resposta => {
-            console.log("Sucesso")
-            console.log(resposta)
             navigate("/")
         })
 
         requisicao.catch(resposta => {
-            console.log("Erro")
-            console.log(resposta)
+
             setCadastrar(false)
             alert("Erro ao criar conta, tente novamente")
         })

@@ -15,17 +15,16 @@ export default function CardHabito(props) {
     }
 
     function deletarHabito() {
-        const requisicao = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}`, config)
 
-        requisicao.then(resposta => {
-            console.log("Excluido com sucesso")
-            const novoArray = props.habitos.filter(hab => hab.id !== props.id)
-            props.setHabitos(novoArray)
-            console.log(props.dias)
-        })
+        if (window.confirm("Você quer mesmo excluir esse habito?") === true) {
+            const requisicao = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}`, config)
+
+            requisicao.then(resposta => {
+                const novoArray = props.habitos.filter(hab => hab.id !== props.id)
+                props.setHabitos(novoArray)
+            })
+        }
     }
-
-    console.log(props.dias)
 
     function corLetra(numero) {
         for (let i = 0; i < props.dias.length; i++) {
@@ -38,19 +37,19 @@ export default function CardHabito(props) {
 
     return (
         <CartaoHabito data-test="habit-container">
-            <div>
+            <TituloELixo>
                 <h1 data-test="habit-name">{props.conteudo}</h1>
                 <img data-test="habit-delete-btn" src={iconeLixo} alt="" onClick={() => deletarHabito()} />
-            </div>
-            <div>
-                <button data-test="habit-day" corLetra={corLetra(7)}>D</button>
-                <button data-test="habit-day" corLetra={corLetra(1)}>S</button>
-                <button data-test="habit-day" corLetra={corLetra(2)}>T</button>
-                <button data-test="habit-day" corLetra={corLetra(3)}>Q</button>
-                <button data-test="habit-day" corLetra={corLetra(4)}>Q</button>
-                <button data-test="habit-day" corLetra={corLetra(5)}>S</button>
-                <button data-test="habit-day" corLetra={corLetra(6)}>S</button>
-            </div>
+            </TituloELixo>
+            <DiasDaSemana>
+                <DiaDaSemana data-test="habit-day" corLetra={corLetra(0)}>D</DiaDaSemana>
+                <DiaDaSemana data-test="habit-day" corLetra={corLetra(1)}>S</DiaDaSemana>
+                <DiaDaSemana data-test="habit-day" corLetra={corLetra(2)}>T</DiaDaSemana>
+                <DiaDaSemana data-test="habit-day" corLetra={corLetra(3)}>Q</DiaDaSemana>
+                <DiaDaSemana data-test="habit-day" corLetra={corLetra(4)}>Q</DiaDaSemana>
+                <DiaDaSemana data-test="habit-day" corLetra={corLetra(5)}>S</DiaDaSemana>
+                <DiaDaSemana data-test="habit-day" corLetra={corLetra(6)}>S</DiaDaSemana>
+            </DiasDaSemana>
         </CartaoHabito>
     )
 }
@@ -65,12 +64,37 @@ box-sizing: border-box;
 margin-top: 10px;
 display: flex;
 flex-direction: column;
-div:first-of-type{
-    width: 315px;
-    height: 27px;
-    display: flex;
-    justify-content: space-between;
-}
+`
+
+const DiasDaSemana = styled.div`
+width: 234px;
+display: flex;
+justify-content: space-between;
+`
+
+const DiaDaSemana = styled.div`
+align-self: flex-start;
+box-sizing: border-box;
+width: 30px;
+height: 30px;
+background: ${props => props.corLetra ? "#DBDBDB" : "#FFFFFF"};
+border: 1px solid #D5D5D5;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+font-family: 'Lexend Deca';
+font-weight: 400;
+font-size: 19.976px;
+line-height: 25px;
+color: ${props => props.corLetra ? "#FFFFFF" : "#DBDBDB"} ;
+`
+
+const TituloELixo = styled.div`
+width: 315px;
+display: flex;
+justify-content: space-between;
 h1{
     font-family: 'Lexend Deca';
     font-weight: 400;
@@ -81,26 +105,5 @@ h1{
 img{
     width: 13px;
     height: 15px;
-}
-div:nth-of-type(2){
-    width: 250px;
-    height: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-self: flex-start;
-    background-color: red;
-}
-button{
-    width: 30px;
-    height: 30px;
-    background-color: ${props => props.corLetra ? "white" : "yellow"};
-    border: 1px solid #D5D5D5;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-family: 'Lexend Deca';
-    font-weight: 400;
-    font-size: 19.976px;
-    line-height: 25px;
-    color: ${props => props.corLetra ? "green" : "blue"};
 }
 `

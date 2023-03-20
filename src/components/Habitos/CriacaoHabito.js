@@ -8,7 +8,7 @@ import { UserDataContext } from "../../Contex/UserDataContext";
 
 export default function CriacaoHabito(props) {
 
-    const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
+    const { dadosUsuario, setDadosUsuario, habitosCompletos, setHabitosCompletos } = useContext(UserDataContext)
 
     const config = {
         headers: {
@@ -18,7 +18,15 @@ export default function CriacaoHabito(props) {
 
     const [nomeHabito, setNomeHabito] = React.useState("");
     const [dias, setDias] = React.useState([]);
-    console.log(dias, nomeHabito)
+    const [desabilitado, setDesabilitado] = React.useState(false)
+
+    useEffect(() => {
+        if (props.nomeHabitoEmCriacao != null) {
+            setNomeHabito(props.nomeHabitoEmCriacao)
+            setDias(props.diasHabitoEmCriacao)
+        };
+    }, []);
+
 
     function acionarDia(dia) {
         if (dias.includes(dia)) {
@@ -30,36 +38,56 @@ export default function CriacaoHabito(props) {
         }
     }
 
+    function corBotao(dia) {
+        if (dias.includes(dia)) {
+            return true
+        }
+
+    }
+
     function enviarHabito() {
 
         const objetoEnvio = { name: nomeHabito, days: dias }
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", objetoEnvio, config);
+        setDesabilitado(true)
 
         requisicao.then((resposta) => {
             props.setHabitos([...props.habitos, resposta.data])
-
-            console.log("Sucesso")
-
-            console.log(resposta)
+            setDesabilitado(false)
+            setNomeHabito("")
+            props.setCriarHabito(false)
+            props.setNomeHabitoEmCriacao(null)
+            props.setDiasHabitoEmCriacao(null)
         })
+
+        requisicao.catch((resposta) => {
+            alert("Ocorreu um erro, tente novamente")
+            setDesabilitado(false)
+        })
+    }
+
+    function cancelarEnvio() {
+        props.setNomeHabitoEmCriacao(nomeHabito)
+        props.setDiasHabitoEmCriacao(dias)
+        props.setCriarHabito(false)
     }
 
     return (
         <Card data-test="habit-create-container">
-            <input data-test="habit-name-input" type="text" placeholder="nome do hábito" onChange={event => setNomeHabito(event.target.value)} />
+            <input data-test="habit-name-input" disabled={desabilitado} type="text" placeholder="nome do hábito" value={nomeHabito} onChange={event => setNomeHabito(event.target.value)} />
             <DiasSemana>
-                <button data-test="habit-day" onClick={() => acionarDia(0)}>D</button>
-                <button data-test="habit-day" onClick={() => acionarDia(1)}>S</button>
-                <button data-test="habit-day" onClick={() => acionarDia(2)}>T</button>
-                <button data-test="habit-day" onClick={() => acionarDia(3)}>Q</button>
-                <button data-test="habit-day" onClick={() => acionarDia(4)}>Q</button>
-                <button data-test="habit-day" onClick={() => acionarDia(5)}>S</button>
-                <button data-test="habit-day" onClick={() => acionarDia(6)}>S</button>
+                <BotaoDias data-test="habit-day" disabled={desabilitado} onClick={() => acionarDia(0)} dia={0} dias={dias} >D</BotaoDias>
+                <BotaoDias data-test="habit-day" disabled={desabilitado} onClick={() => acionarDia(1)} dia={1} dias={dias} >S</BotaoDias>
+                <BotaoDias data-test="habit-day" disabled={desabilitado} onClick={() => acionarDia(2)} dia={2} dias={dias} >T</BotaoDias>
+                <BotaoDias data-test="habit-day" disabled={desabilitado} onClick={() => acionarDia(3)} dia={3} dias={dias} >Q</BotaoDias>
+                <BotaoDias data-test="habit-day" disabled={desabilitado} onClick={() => acionarDia(4)} dia={4} dias={dias} >Q</BotaoDias>
+                <BotaoDias data-test="habit-day" disabled={desabilitado} onClick={() => acionarDia(5)} dia={5} dias={dias} >S</BotaoDias>
+                <BotaoDias data-test="habit-day" disabled={desabilitado} onClick={() => acionarDia(6)} dia={6} dias={dias} >S</BotaoDias>
             </DiasSemana>
-            <div>
-                <button data-test="habit-create-cancel-btn">Cancelar</button>
-                <button data-test="habit-create-save-btn" onClick={() => enviarHabito()}>Salvar</button>
-            </div>
+            <BotoesLadoLado>
+                <BotaoCancelar data-test="habit-create-cancel-btn" disabled={desabilitado} onClick={() => cancelarEnvio()}>Cancelar</BotaoCancelar>
+                <BotaoSalvar data-test="habit-create-save-btn" disabled={desabilitado} onClick={() => enviarHabito()}>Salvar</BotaoSalvar>
+            </BotoesLadoLado>
 
         </Card>
     )
@@ -78,19 +106,64 @@ flex-direction: column;
 justify-content: flex-start;
 
 input{
-    width: 80vw;
+    width: 100%;
     height: 45px;
     border: 1px solid #D5D5D5;
     border-radius: 5px;
 }
-div{
-    margin-top: 10px;
-    display: flex;
-}
+
 `
 
 const DiasSemana = styled.div`
+width: 234px;
+align-self: flex-start;
+`
+
+const BotaoDias = styled.button`
+box-sizing: border-box;
+width: 30px;
 height: 30px;
-width: 60vw;
-background-color: red;
+background: ${props => props.dias.includes(props.dia) ? "#DBDBDB" : "#FFFFFF"};
+border: 1px solid #D5D5D5;
+border-radius: 5px;
+font-family: 'Lexend Deca';
+font-weight: 400;
+font-size: 19.976px;
+line-height: 25px;
+color: ${props => props.dias.includes(props.dia) ? "#FFFFFF" : "#DBDBDB"};
+margin-right: 4px;
+`
+
+const BotoesLadoLado = styled.div`
+margin-top: 10px;
+display: flex;
+align-self: flex-end;
+`
+
+const BotaoSalvar = styled.button`
+width: 84px;
+height: 35px;
+background: #52B6FF;
+border-radius: 4.63636px;
+font-family: 'Lexend Deca';
+font-weight: 400;
+font-size: 15.976px;
+line-height: 20px;
+text-align: center;
+color: #FFFFFF;
+border: none;
+`
+
+const BotaoCancelar = styled.button`
+width: 84px;
+height: 35px;
+background: #FFFFFF;
+border-radius: 4.63636px;
+font-family: 'Lexend Deca';
+font-weight: 400;
+font-size: 15.976px;
+line-height: 20px;
+text-align: center;
+color: #52B6FF;
+border: none;
 `

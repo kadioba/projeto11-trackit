@@ -16,39 +16,14 @@ import axios from "axios";
 
 export default function Menu(props) {
 
-    const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
+    const { habitosCompletos } = useContext(UserDataContext)
 
-    const [habitosCompletos, setHabitosCompletos] = React.useState(0);
-    console.log(habitosCompletos)
-
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${dadosUsuario.token}`
-        }
-    }
 
     const navigate = useNavigate()
 
     function direcionarHoje() {
         navigate("/hoje")
     }
-
-    useEffect(() => {
-        const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config);
-
-        requisicao.then(resposta => {
-
-            const habitosFeitos = resposta.data.filter((habito => {
-                if (habito.done === true) {
-                    return true
-                }
-            }))
-            console.log(habitosFeitos)
-
-            const mediaHabitos = (habitosFeitos.length / resposta.data.length) * 100
-            setHabitosCompletos(mediaHabitos);
-        });
-    }, [props.habitoAtualizado]);
 
     return (
         <BarraMenu data-test="menu">

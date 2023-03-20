@@ -18,8 +18,7 @@ export default function Login() {
 
     const navigate = useNavigate()
 
-    const { dadosUsuario, setDadosUsuario } = useContext(UserDataContext)
-    console.log(dadosUsuario)
+    const { setDadosUsuario } = useContext(UserDataContext)
 
     function loginAplicacao(event) {
 
@@ -33,14 +32,11 @@ export default function Login() {
         setLogar(true)
 
         requisicao.then(resposta => {
-            console.log("Sucesso")
             setDadosUsuario(resposta.data)
             navigate("/hoje")
         })
 
         requisicao.catch(resposta => {
-            console.log("Erro")
-            console.log(resposta)
             setLogar(false)
             alert("Erro ao logar, tente novamente")
         })
